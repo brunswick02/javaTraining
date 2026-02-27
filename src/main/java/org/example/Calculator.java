@@ -2,7 +2,14 @@ package org.example;
 import java.util.Scanner;
 
 public class Calculator {
+    private double lastResult;
+
     public static void main(String[] args) {
+        Calculator calculator = new Calculator();
+        calculator.run();
+    }
+
+    public void run() {
         Scanner scanner = new Scanner(System.in);
         while (true){
             System.out.println("Выберите операцию:");
@@ -29,25 +36,24 @@ public class Calculator {
 
             switch (choice) {
                 case 1:
-                    result = num1 + num2;
+                    result = addition(num1, num2);
                     break;
                 case 2:
-                    result = num1 - num2;
+                    result = subtraction(num1, num2);
                     break;
                 case 3:
-                    result = num1 * num2;
+                    result = multiplication(num1, num2);
                     break;
                 case 4:
-                    if (num2 == 0) {
-                        System.out.println("Ошибка: деление на ноль!");
+                    result = division(num1, num2);
+                    if (num2 == 0){
                         validOperation = false;
-                    } else {
-                        result = num1 / num2;
                     }
                     break;
                 default:
                     System.out.println("Неверный пункт меню. Попробуйте снова.");
                     validOperation = false;
+                    break;
             }
 
             if (validOperation) {
@@ -55,5 +61,30 @@ public class Calculator {
             }
         }
         scanner.close();
+    }
+
+    public double addition(double a, double b){
+        lastResult = a + b;
+        return lastResult;
+    }
+
+    public double subtraction(double a, double b){
+        lastResult = a - b;
+        return lastResult;
+    }
+
+    public double multiplication(double a, double b){
+        lastResult = a * b;
+        return lastResult;
+    }
+
+    public double division(double a, double b){
+        if (b == 0){
+            System.out.println("Ошибка: деление на ноль!");
+            return 0;
+        } else {
+            lastResult = a / b;
+            return  lastResult;
+        }
     }
 }
